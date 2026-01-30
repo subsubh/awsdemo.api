@@ -9,15 +9,15 @@ phases:
     commands:
       - echo Restore started on `Date`
       - echo "CURRENT DIR `pwd`"
-      - dotnet restore awsdemo.api/awsdemo.api/awsdemo.api.csproj
+      - dotnet restore awsdemo.api.csproj
   build:
     commands:
       - echo Build started on `Date`
-      - dotnet build awsdemo.api/awsdemo.api/awsdemo.api.csproj
+      - dotnet build awsdemo.api.csproj
   post_build:
     commands:
       - echo Publish srated on `Date`
-      - dotnet publish -c Release -o ./build-output awsdemo.api/awsdemo.api/awsdemo.api.csproj
+      - dotnet publish -c Release -o ./build-output awsdemo.api.csproj
 
 artifacts:
   name: AWS_DEMO_API_BUILD_#$CODEBUILD_BUILD_NUMBER
