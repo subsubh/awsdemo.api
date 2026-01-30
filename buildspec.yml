@@ -1,0 +1,26 @@
+# AWS CodeBuild spec to build an Elastic Beanstalk artifact for AWS CodePipeline to deploy
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 8.0
+  pre_build:
+    commands:
+      - echo Restore started on `Date`
+      - echo "CURRENT DIR `pwd`"
+      - dotnet restore awsdemo.api/awsdemo.api/awsdemo.api.csproj
+  build:
+    commands:
+      - echo Build started on `Date`
+      - dotnet build awsdemo.api/awsdemo.api/awsdemo.api.csproj
+  post_build:
+    commands:
+      - echo Publish srated on `Date`
+      - dotnet publish -c Release -o ./build-output awsdemo.api/awsdemo.api/awsdemo.api.csproj
+
+artifacts:
+  name: AWS_DEMO_API_BUILD_#$CODEBUILD_BUILD_NUMBER
+  base-directory: './build-output'
+  files:
+    - ./**/*  
